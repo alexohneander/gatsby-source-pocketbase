@@ -9,12 +9,13 @@ exports.sourceNodes = (
     protocol: "http",
     address: `127.0.0.1`,
     port: 8090,
+    userCollection: "_superusers",
   }
 
   const pb = new PocketBase(
     `${serverOptions.protocol}://${serverOptions.address}:${serverOptions.port}`
   )
-  return pb.admins
+  return pb.collection(serverOptions.userCollection)
     .authWithPassword(pluginOptions.auth.user, pluginOptions.auth.password)
     .then(() => {
       reporter.log("Getting tables from pocketbase")
